@@ -39,3 +39,10 @@ writeFileSync(
     game_path_max_bytes: 1000,
   }),
 );
+
+// Sanity check: fail loudly rather than silently if the copy steps above somehow
+// left game/ or dossier.json missing from the output directory.
+if (!existsSync(join(out, 'game')) || !existsSync(join(out, 'dossier.json'))) {
+  throw new Error(`build incomplete: expected game/ and dossier.json under ${out}`);
+}
+console.log(`Umbra Protocol: wrote game, screenshots, and dossier.json to ${out}`);

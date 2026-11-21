@@ -24,7 +24,9 @@ export function drawAlertMeter(ctx, alertMeter, x, y, width, height) {
   ctx.strokeStyle = 'rgba(255,255,255,0.35)';
   ctx.strokeRect(x, y, width, height);
 
-  ctx.fillStyle = '#e8edf5';
+  // Tint the label itself with the same ramp as the bar so a glance at the text
+  // colour alone (not just the fill width) tells you how close to caught you are.
+  ctx.fillStyle = alertMeter.value > 0.75 ? '#ef4444' : alertMeter.value > 0.4 ? '#f2c14e' : '#e8edf5';
   ctx.font = '600 13px "Segoe UI", sans-serif';
   ctx.textBaseline = 'middle';
   ctx.fillText(`ALERT — ${alertMeter.statusLabel()}`, x, y - 12);
